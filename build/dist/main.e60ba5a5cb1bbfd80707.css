@@ -1,0 +1,22 @@
+
+div[data-v-71ff8a9c]{
+  color: #f60;
+  font-size: 24px;
+}
+
+h1 a[data-v-0b885944]{
+  color: #3399ff;
+  font-size: 24px;
+}
+
+button[data-v-621d57c8]{
+  border: 0;
+  outline: none;
+  color: #fff;
+  padding: 4px 8px;
+}
+button[data-v-621d57c8]:active{
+  position: relative;
+  top: 1px;
+  left: 1px;
+}
