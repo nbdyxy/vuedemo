@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-title title="Vue组件化"></v-title>
-    <v-button @click="handleClick">点击按钮</v-button>
+    <v-button @click="handleClick" :color="color">点击按钮</v-button>
     <input type="text" v-model="name" placeholder="你的名字">
     <h1>你好，{{ name }}</h1>
     <div>
@@ -24,16 +24,64 @@
         <li>作者: {{ book.author }}</li>
       </template>
     </ul>
+
+    <!-- 表单与v-model -->
+    <input type="radio" v-model="picked" value="css" id="css">
+    <label for="css">CSS</label>
+    <br>
+    <input type="radio" v-model="picked" value="html" id="html">
+    <label for="css">HTML</label>
+    <br>
+    <input type="radio" v-model="picked" value="js" id="js">
+    <label for="css">JavaScript</label>
+    <br>
+    <p>选择的项是：{{ picked }}</p>
+
+    <input type="checkbox" v-model="checked" value="css" id="css">
+    <label for="css">CSS</label>
+    <br>
+    <input type="checkbox" v-model="checked" value="html" id="html">
+    <label for="css">HTML</label>
+    <br>
+    <input type="checkbox" v-model="checked" value="js" id="js">
+    <label for="css">JavaScript</label>
+    <br>
+    <p>选择的项是：{{ checked }}</p>
+
+    <!-- 组件详解 -->
+    <v-calculate
+      @increase="handleGetTotal"
+      @reduce="handleGetTotal"
+      @click.native="handleClick"></v-calculate>
+    <p>总数：{{ total }}</p>
+
+    <v-input v-model="total"></v-input>
+    <button @click="handleReduce">-1</button>
+
+    <my-slot>
+      <h2 slot="header">标题</h2>
+      <p>正文内容</p>
+      <p>更多的正文内容</p>
+      <div slot="footer">
+        底部信息
+      </div>
+    </my-slot>
   </div>
 </template>
 <script>
   import vTitle from './components/title.vue';
   import vButton from './components/button.vue';
+  import vCalculate from './components/calculate.vue'
+  import vInput from './components/input.vue'
+  import mySlot from './components/mySlot.vue'
 
   export default {
     components: {
       vTitle,
-      vButton
+      vButton,
+      vCalculate,
+      vInput,
+      mySlot
     },
     created () {
       this.name = 'created';
@@ -67,11 +115,17 @@
           author: '[希]Lea Verou'
         }
         console.log(this.books[2]);
+      },
+      handleGetTotal (total) {
+        this.total = total;
+      },
+      handleReduce () {
+        this.total--;
       }
     },
     data () {
       return {
-        color: '#f60',
+        color: '#000',
         name: '',
         date: new Date(),
         text: '123,456',
@@ -95,7 +149,10 @@
             name: '《JavaScript高级程序设计》',
             author: 'Nicholas C.Zakas'
           }
-        ]
+        ],
+        picked: 'css1',
+        checked: ['css1'],
+        total: 0
       }
     },
     computed: {
